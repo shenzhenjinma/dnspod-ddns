@@ -25,7 +25,7 @@ dnspod_load_config(){
 } 
 #域名是否需要更新
 dnspod_is_record_updated(){
-    options="login_email=${ACCOUNT}&login_password=${PASSWORD}&format=json";
+    options="login_token=${ACCOUNT},${PASSWORD}&format=json";
     out=$(curl -s -k https://dnsapi.cn/Record.List -d "${options}&domain=${DOMAIN}&sub_domain=${SUBDOMAIN}")
     #echo $out
     #resolve_ip=$(echo $out | sed 's/.*"value":"\([0-9.]*\)",.*/\1/g')
