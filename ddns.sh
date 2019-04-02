@@ -12,7 +12,7 @@ SUBDOMAIN=""
 RECORD_LINE=""
 
 DOMAIN_ID=""  
-
+resolve_ip=""
 dnspod_load_config(){
 	cfg=$1;
 	content=`cat ${cfg}`;
@@ -42,7 +42,7 @@ dnspod_is_record_updated(){
 }
 #获得域名的id
 dnspod_domain_get_id(){
-	options="login_email=${ACCOUNT}&login_password=${PASSWORD}";
+	options="login_token=${ACCOUNT},${PASSWORD}";
 	out=$(curl -s -k https://dnsapi.cn/Domain.List -d ${options});
     for line in $out;do
         if [ $(echo $line|grep '<id>' |wc -l) != 0 ];then
@@ -79,7 +79,8 @@ dnspod_domain_get_id(){
 }
 
 dnspod_update_record_ip(){
-	curl -k https://dnsapi.cn/Record.Ddns -d "login_email=${ACCOUNT}&login_password=${PASSWORD}&domain_id=${DOMAIN_ID}&record_id=${RECORD_ID}&sub_domain=${RECORD_NAME}&record_line=${RECORD_LINE}"
+	#curl -k https://dnsapi.cn/Record.Ddns -d "login_token=${ACCOUNT},${PASSWORD}&domain_id=${DOMAIN_ID}&record_id=${RECORD_ID}&sub_domain=${RECORD_NAME}&record_line=${RECORD_LINE}"
+    curl -X POST https://dnsapi.cn/Record.Modify -d 'login_token=${ACCOUNT},${PASSWORD}&format=json&domain_id=${DOMAIN_ID}&record_id=${RECORD_ID}&sub_domain=${RECORD_NAME}&value=${resolve_ip}&record_type=A&record_line=${RECORD_LINE}'
 }
 
 main(){
