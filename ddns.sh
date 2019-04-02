@@ -12,7 +12,7 @@ SUBDOMAIN=""
 RECORD_LINE=""
 
 DOMAIN_ID=""  
-resolve_ip=""
+current_ip=""
 dnspod_load_config(){
 	cfg=$1;
 	content=`cat ${cfg}`;
@@ -80,7 +80,7 @@ dnspod_domain_get_id(){
 
 dnspod_update_record_ip(){
 	#curl -k https://dnsapi.cn/Record.Ddns -d "login_token=${ACCOUNT},${PASSWORD}&domain_id=${DOMAIN_ID}&record_id=${RECORD_ID}&sub_domain=${RECORD_NAME}&record_line=${RECORD_LINE}"
-    curl -X POST https://dnsapi.cn/Record.Modify -d 'login_token=${ACCOUNT},${PASSWORD}&format=json&domain_id=${DOMAIN_ID}&record_id=${RECORD_ID}&sub_domain=${RECORD_NAME}&value=${resolve_ip}&record_type=A&record_line=${RECORD_LINE}'
+    curl -X POST https://dnsapi.cn/Record.Modify -d "login_token=${ACCOUNT},${PASSWORD}&format=json&domain_id=${DOMAIN_ID}&record_id=${RECORD_ID}&sub_domain=${RECORD_NAME}&value=${current_ip}&record_type=A&record_line=${RECORD_LINE}"
 }
 
 main(){
