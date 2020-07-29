@@ -1,6 +1,6 @@
 #!/bin/sh
 # usage: ./ddns.sh ddns.conf
-
+# by 68xg.com or 百度搜索：广州Linux
 if [ "$#" != 1 ];then
 	echo "param error."
 	exit 0
